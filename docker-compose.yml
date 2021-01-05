@@ -1,20 +1,14 @@
 version: "3.7"
 
 services:
-  app:
-    image: node:12-alpine
-    command: sh -c "yarn install && yarn run dev"
+  jenkins:
+    image: jenkins/jenkins
     ports:
-      - 3000:3000
-    working_dir: /app
+      - 8080:8080
+      - 5000:5000
     volumes:
-      - ./:/app
-    environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DB: todos
-
+      - jenkins_home:/var/jenkins_home
+    
   mysql:
     image: mysql:5.7
     volumes:
@@ -24,6 +18,7 @@ services:
       MYSQL_DATABASE: todos
 
 volumes:
-  todo-mysql-data:
+  jenkins_home:
+  challenge-mysql-data:
 
   

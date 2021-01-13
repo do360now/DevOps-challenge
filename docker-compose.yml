@@ -2,20 +2,27 @@ version: "3.7"
 
 services:
   jenkins:
-    image: jenkins/jenkins
+    user: jenkins
+    image: do360now/jenkins:0.0.1
     ports:
       - 8080:8080
       - 5000:5000
     volumes:
       - jenkins_home:/var/jenkins_home
-    
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  sonarqube:
+    image: sonarqube
+    ports:
+      - 9000:9000
+        
   mysql:
     image: mysql:5.7
     volumes:
-      - todo-mysql-data:/var/lib/mysql
+      - challenge-mysql-data:/var/lib/mysql
     environment: 
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: todos
+      MYSQL_DATABASE: challenge
 
 volumes:
   jenkins_home:

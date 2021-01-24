@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
-RUN apt-get update && apt-get upgrade
-RUN apt-get install pip3
-RUN pip3 install ansible
+RUN apt update
+RUN apt install software-properties-common
+RUN apt-add-repository --yes --update ppa:ansible/ansible
+RUN apt install ansible -y 
+RUN mkdir challenge
+COPY challenge-deploy.yml /challenge/challenge-deploy.yml
 CMD /challenge/challenge-deploy.yml
